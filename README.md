@@ -2,6 +2,9 @@
 
 This is a simple weather app using [Streamlit](https://streamlit.io/) and the [OpenWeatherMap API](https://openweathermap.org/current).
 
+# Preview
+![Weather_app_preview](image.png)
+
 ## Features
 
 - 🌡️ Live temperature and humidity

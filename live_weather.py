@@ -21,7 +21,7 @@ def fetch_weather(city="London"):
 
 def main():
     st.set_page_config(page_title="Live Weather", page_icon="⛅")
-    st.title("🌦️ Live Weather App with Submit Button")
+    st.title("🌦️ Live Weather")
 
     if 'submitted' not in st.session_state:
         st.session_state.submitted = False
@@ -44,8 +44,9 @@ def main():
         else:
             st.divider()
             st.header(f"🌍 Weather in {data['city']}")
-            st.metric(label="🌡️ Temperature", value=f"{data['temperature']}°C")
-            st.metric(label="💧 Humidity", value=f"{data['humidity']}%")
+            col1, col2 = st.columns(2)
+            col1.metric(label="🌡️ Temperature", value=f"{data['temperature']}°C")
+            col2.metric(label="💧 Humidity", value=f"{data['humidity']}%")
             st.subheader(f"☁️ Condition: {data['condition']}")
             st.caption("⏱️ Auto-refresh every 60 seconds")
 
