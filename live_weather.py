@@ -2,7 +2,7 @@ import requests
 import streamlit as st
 from streamlit_autorefresh import st_autorefresh
 
-API_KEY = "f29a0a07a8c939e1176d3589f168386d"
+API_KEY = st.secrets["api"]["weather_key"]
 
 def fetch_weather(city="London"):
     url = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={API_KEY}&units=metric"
