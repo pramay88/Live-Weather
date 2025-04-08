@@ -2,9 +2,12 @@ import requests
 import streamlit as st
 from streamlit_autorefresh import st_autorefresh
 
-API_KEY = st.secrets["api"]["weather_key"]
+try:
+    API_KEY = st.secrets["api"]["weather_key"]
+except:
+    API_KEY = "f29a0a07a8c939e1176d3589f168386d"
 
-def fetch_weather(city="London"):
+def fetch_weather(city):
     url = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={API_KEY}&units=metric"
     res = requests.get(url)
     if res.status_code == 200:
@@ -26,21 +29,24 @@ def main():
     if 'submitted' not in st.session_state:
         st.session_state.submitted = False
     if 'city' not in st.session_state:
-        st.session_state.city = "London"
+        st.session_state.city = ""
 
-    city = st.text_input("Enter a city name:", st.session_state.city)
+    city = st.text_input("Enter a city name:", value="", placeholder="Enter Location to check weather")
 
     if st.button("✅ Check Weather"):
-        st.session_state.submitted = True
-        st.session_state.city = city  # store the city
+        if city.strip() == "":
+            st.warning("⚠️ Please enter a city.")
+            st.session_state.submitted = False
+        else:
+            st.session_state.submitted = True
+            st.session_state.city = city.strip()
 
     if st.session_state.submitted:
-        # Refresh every 60 seconds (60000 ms)
         st_autorefresh(interval=60000, key="auto_refresh")
 
         data = fetch_weather(st.session_state.city)
         if "message" in data:
-            st.error(data["message"])
+            st.error("🚫 Enter Correct Location - " + data["message"])
         else:
             st.divider()
             st.header(f"🌍 Weather in {data['city']}")
