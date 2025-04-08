@@ -31,7 +31,7 @@ def main():
     if 'city' not in st.session_state:
         st.session_state.city = "London"
 
-    city = st.text_input("Enter a city name:", st.session_state.city)
+    city = st.text_input("Enter a city name:", value=st.session_state.city, placeholder="Enter Location to check weather")
 
     if st.button("✅ Check Weather"):
         st.session_state.submitted = True
