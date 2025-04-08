@@ -28,11 +28,11 @@ def main():
 
     if 'submitted' not in st.session_state:
         st.session_state.submitted = False
-    city = st.text_input("Enter a city name:", placeholder="Enter Location to check weather")
+    if 'city' not in st.session_state:
+        st.session_state.city = "London"
+    
+    city = st.text_input("Enter a city name:", value=st.session_state.city, placeholder="Enter Location to check weather")
 
-    if st.button("✅ Check Weather"):
-        st.session_state.submitted = True
-        st.session_state.city = city if city.strip() else "London"
 
     if st.button("✅ Check Weather"):
         st.session_state.submitted = True
